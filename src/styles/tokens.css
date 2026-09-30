@@ -1,0 +1,31 @@
+/* Colour and type tokens. Values from the brief; *-text tints exist because the base teal and
+   warning colours fall below WCAG AA (4.5:1) for body text on the panel colour. */
+:root {
+  color-scheme: dark;
+
+  --bg: #11151a;
+  --panel: #1b2229;
+  --panel-raised: #222a32;
+  --bone: #e7e1d5;
+  --bone-muted: #a8a396; /* 6.4:1 on panel */
+  --ember: #e87532; /* 5.4:1 on panel; dark text on ember 6.1:1 */
+  --ember-text: #f0935a;
+  --teal: #4f8f8b; /* non-text and large text only */
+  --teal-text: #7db8b3; /* 7.2:1 on panel */
+  --warning: #b84f4a; /* borders and markers only: 3.3:1 on panel */
+  --warning-text: #e0837d; /* 5.9:1 on panel */
+  --border: #3b444d;
+  --control-border: #7a766d; /* 3.6:1 on panel, for control outlines */
+
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  --radius: 2px;
+  --gutter: 16px;
+  --shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  --fast: 140ms;
+  --normal: 200ms;
+
+  /* Integer sprite scale. Changes with viewport width in base.css. */
+  --s: 3;
+}

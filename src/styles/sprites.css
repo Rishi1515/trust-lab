@@ -1,0 +1,69 @@
+/* Pixel sprites as CSS steps() animations over a single sheet. Each sheet is scaled by the
+   integer --s and drawn with image-rendering: pixelated, so pixels stay square and crisp.
+   The keyframes travel from frame 0 to the last frame with steps(N, jump-none), so every
+   frame gets equal time and a one-shot animation can hold its final frame. */
+
+.sprite {
+  display: block;
+  width: calc(var(--fw) * var(--s) * 1px);
+  height: calc(var(--fh) * var(--s) * 1px);
+  background-repeat: no-repeat;
+  background-size: calc(var(--fw) * var(--frames) * var(--s) * 1px) calc(var(--fh) * var(--s) * 1px);
+  background-position: 0 0;
+  image-rendering: pixelated;
+  animation-name: sprite-play;
+  animation-duration: var(--dur);
+  animation-timing-function: steps(var(--frames), jump-none);
+  animation-iteration-count: var(--repeat, infinite);
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+@keyframes sprite-play {
+  from { background-position-x: 0; }
+  to { background-position-x: calc((var(--frames) - 1) * var(--fw) * var(--s) * -1px); }
+}
+
+.sprite--idle   { --fw: 48; --fh: 48; --frames: 2;  --dur: 1400ms; --rest: 0;  background-image: url('/sprites/cal-idle.png'); }
+.sprite--attack { --fw: 96; --fh: 64; --frames: 10; --dur: 950ms;  --rest: 6;  --repeat: 1; background-image: url('/sprites/cal-audit-strike.png'); }
+.sprite--die    { --fw: 96; --fh: 64; --frames: 13; --dur: 1500ms; --rest: 12; --repeat: 1; background-image: url('/sprites/cal-collapse.png'); }
+.sprite--skull  { --fw: 32; --fh: 32; --frames: 2;  --dur: 1200ms; --rest: 0;  background-image: url('/sprites/risk-skull.png'); }
+.sprite--torch  { --fw: 48; --fh: 48; --frames: 4;  --dur: 800ms;  --rest: 0;  background-image: url('/sprites/torch.png'); }
+.sprite--torch2 { --fw: 48; --fh: 48; --frames: 4;  --dur: 800ms;  --rest: 0;  background-image: url('/sprites/torch2.png'); }
+
+/* Cal's stage is one 96 x 64 reaction frame. The 48 x 48 idle frame is offset so its feet
+   (bottom opaque row 44, centre x 24) land on the reaction sheets' feet (row 64, centre x 45). */
+.cal-stage {
+  position: relative;
+  width: calc(96 * var(--s) * 1px);
+  height: calc(64 * var(--s) * 1px);
+  flex: none;
+}
+.cal-stage > .sprite { position: absolute; left: 0; top: 0; }
+.cal-stage > .sprite--idle { left: calc(21 * var(--s) * 1px); top: calc(20 * var(--s) * 1px); }
+/* Torch base on Cal's baseline, to his right. torch.png's base ends at row 38; torch2.png's shadow at row 48. */
+.cal-stage > .stage-accent { left: calc(56 * var(--s) * 1px); top: calc(26 * var(--s) * 1px); }
+.cal-stage > .stage-accent.sprite--torch2 { top: calc(16 * var(--s) * 1px); }
+
+.sprite-inline { display: inline-block; vertical-align: middle; }
+.sprite-inline.sprite--skull { --s: 1; }
+
+/* Reduced motion: a stable representative frame and no animation. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='on']) .sprite {
+    animation: none;
+    background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
+  }
+}
+:root[data-motion='off'] .sprite {
+  animation: none;
+  background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
+}
+
+/* Static art (credits page): always a single representative frame. */
+.sprite.sprite-static {
+  animation: none;
+  background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
+}
+/* On the credits page, show the collapse mid-fall rather than as a flat pile. */
+.sprite-static.sprite--die { --rest: 6; }

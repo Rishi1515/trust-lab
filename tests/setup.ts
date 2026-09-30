@@ -8,3 +8,6 @@ afterEach(() => {
   localStorage.clear();
   window.location.hash = '';
 });
+
+// jsdom does not implement scrolling.
+window.scrollTo = () => {};
