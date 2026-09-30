@@ -14,7 +14,7 @@ for (const ref of local) {
   if (ref.startsWith(base) && !existsSync(onDisk)) problems.push(`Asset "${ref}" is missing from dist/.`);
 }
 const sprites = existsSync('dist/sprites') ? readdirSync('dist/sprites') : [];
-for (const f of ['cal-idle.png', 'cal-audit-strike.png', 'cal-collapse.png', 'torch.png']) {
+for (const f of ['cal-idle.png', 'cal-audit-strike.png', 'cal-collapse.png', 'risk-skull.png', 'torch.png', 'torch2.png']) {
   if (!sprites.includes(f)) problems.push(`Sprite ${f} missing from dist/sprites/.`);
 }
 

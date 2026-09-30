@@ -5,6 +5,8 @@ Web file              Source file                        Sheet       Frames
 cal-idle.png          skelly.png                         96 x 48     2 x (48 x 48)
 cal-audit-strike.png  Skeleton_01_White_Attack1.png      960 x 64    10 x (96 x 64)
 cal-collapse.png      Skeleton_01_White_Die.png          1248 x 64   13 x (96 x 64)
+risk-skull.png        skull1-sheet.png                   64 x 32     2 x (32 x 32)
 torch.png             torch.png                          192 x 48    4 x (48 x 48)
+torch2.png            torch2.png                         192 x 48    4 x (48 x 48)
 
-Editable source: Sprite-0001.aseprite (kept in source-assets/, never served).
+Editable source: Sprite-0001.aseprite (kept unchanged in source-assets/, never served).

@@ -7,6 +7,8 @@ export type TrialPlan = {
   aiIsCorrect: boolean;
   confidence: Confidence;
   explanationMode: ExplanationMode;
+  /** Display order of the three action ids, shuffled per trial so position cannot cue the answer. */
+  actionOrder: string[];
 };
 
 export type Reaction = 'idle' | 'attack' | 'die';

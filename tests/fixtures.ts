@@ -34,5 +34,5 @@ export function decision(trial: number, scenarioId: string, chosenActionId: stri
 }
 
 export function planRow(trial: number, scenarioId: string, aiIsCorrect: boolean, confidence: 0.65 | 0.95, rationale: boolean): TrialPlan {
-  return { trial, scenarioId, aiIsCorrect, confidence, explanationMode: rationale ? 'rationale' : 'none' };
+  return { trial, scenarioId, aiIsCorrect, confidence, explanationMode: rationale ? 'rationale' : 'none', actionOrder: ['right', 'wrong', 'look'] };
 }

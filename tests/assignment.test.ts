@@ -87,6 +87,22 @@ describe('balanced condition assignment', () => {
     }
   });
 
+  it('shuffles action display order per trial, reproducibly, without changing the actions', () => {
+    const byId = new Map(SCENARIOS.map((s) => [s.id, s]));
+    const plan = assignRun('actions', SCENARIOS);
+    expect(assignRun('actions', SCENARIOS).map((p) => p.actionOrder)).toEqual(plan.map((p) => p.actionOrder));
+    for (const p of plan) {
+      expect([...p.actionOrder].sort()).toEqual(byId.get(p.scenarioId)!.actions.map((a) => a.id).sort());
+      expect(presentScenario(byId.get(p.scenarioId)!, p).actions.map((a) => a.id)).toEqual(p.actionOrder);
+    }
+    // Across many seeds the documented action appears in every position.
+    const positions = new Set<number>();
+    for (const seed of SEEDS.slice(0, 40)) {
+      for (const p of assignRun(seed, SCENARIOS)) positions.add(p.actionOrder.indexOf(byId.get(p.scenarioId)!.correctActionId));
+    }
+    expect([...positions].sort()).toEqual([0, 1, 2]);
+  });
+
   it('rejects a bank of the wrong size', () => {
     expect(() => assignRun('x', SCENARIOS.slice(0, 10))).toThrow();
   });

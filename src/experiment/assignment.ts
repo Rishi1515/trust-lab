@@ -58,7 +58,7 @@ function sumDifficulty(items: ScenarioRecord[]): number {
   return items.reduce((total, s) => total + s.difficulty, 0);
 }
 
-function orderIsAcceptable(plan: TrialPlan[], domainOf: Map<string, Domain>): boolean {
+function orderIsAcceptable(plan: Pick<TrialPlan, 'scenarioId' | 'aiIsCorrect'>[], domainOf: Map<string, Domain>): boolean {
   for (let i = 1; i < plan.length; i++) {
     if (domainOf.get(plan[i].scenarioId) === domainOf.get(plan[i - 1].scenarioId)) return false;
   }
@@ -81,15 +81,19 @@ export function assignRun(seed: string, bank: readonly ScenarioRecord[]): TrialP
   const split = chooseSplit(bank, rng);
   const [correctPattern, incorrectPattern] = rng() < 0.5 ? [PATTERN_A, PATTERN_B] : [PATTERN_B, PATTERN_A];
 
-  const unordered: Omit<TrialPlan, 'trial'>[] = [
+  const unordered: Omit<TrialPlan, 'trial' | 'actionOrder'>[] = [
     ...shuffle(split.correct, rng).map((s, i) => ({ scenarioId: s.id, aiIsCorrect: true, ...correctPattern[i] })),
     ...shuffle(split.incorrect, rng).map((s, i) => ({ scenarioId: s.id, aiIsCorrect: false, ...incorrectPattern[i] })),
   ];
 
   const domainOf = new Map(bank.map((s) => [s.id, s.domain] as const));
+  const actionIdsOf = new Map(bank.map((s) => [s.id, s.actions.map((a) => a.id)] as const));
   for (let attempt = 0; attempt < MAX_ORDER_ATTEMPTS; attempt++) {
-    const plan = shuffle(unordered, rng).map((p, i) => ({ ...p, trial: i + 1 }));
-    if (orderIsAcceptable(plan, domainOf)) return plan;
+    const ordered = shuffle(unordered, rng).map((p, i) => ({ ...p, trial: i + 1 }));
+    if (!orderIsAcceptable(ordered, domainOf)) continue;
+    // Separate stream, so action order never changes which trial order a seed produces.
+    const actionRng = createRng(`trustlab:${seed}:actions`);
+    return ordered.map((p) => ({ ...p, actionOrder: shuffle(actionIdsOf.get(p.scenarioId)!, actionRng) }));
   }
   throw new Error(`Could not find an acceptable trial order for seed "${seed}".`);
 }
@@ -97,16 +101,20 @@ export function assignRun(seed: string, bank: readonly ScenarioRecord[]): TrialP
 /** Resolve a canonical scenario record against its assigned conditions. */
 export function presentScenario(
   record: ScenarioRecord,
-  conditions: Pick<TrialPlan, 'aiIsCorrect' | 'confidence' | 'explanationMode'>,
+  conditions: Pick<TrialPlan, 'aiIsCorrect' | 'confidence' | 'explanationMode'> & { actionOrder?: string[] },
 ): Scenario {
   const variant = conditions.aiIsCorrect ? record.advice.correct : record.advice.incorrect;
+  const order = conditions.actionOrder;
+  const actions = order && order.length === record.actions.length
+    ? order.map((id) => record.actions.find((a) => a.id === id)!).filter(Boolean)
+    : record.actions;
   return {
     id: record.id,
     domain: record.domain,
     title: record.title,
     brief: record.brief,
     facts: record.facts,
-    actions: record.actions,
+    actions,
     correctActionId: record.correctActionId,
     aiRecommendationActionId: variant.actionId,
     aiIsCorrect: variant.actionId === record.correctActionId,

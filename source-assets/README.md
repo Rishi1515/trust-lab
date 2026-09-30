@@ -1,7 +1,7 @@
 # Source assets
 
-Editable sources for the character art. Nothing in this folder is served by the website.
+Editable sources for the character art by P. Tejas Varma. Nothing in this folder is served by the website, and nothing here is covered by the MIT licence.
 
-- `Sprite-0001.aseprite`: editable Aseprite source by P. Tejas Varma. **Add the original file here unchanged; never overwrite it.** It was not supplied in the session that built the repository.
+- `Sprite-0001.aseprite`: the original editable Aseprite file, copied byte for byte from the supplied `sprites/sprites/` folder. Never overwrite it; export new sheets to `public/sprites/` instead.
 
-Exported web sheets live in `public/sprites/`. `public/sprites/ATTRIBUTION.txt` maps each web filename back to its source filename.
+`public/sprites/ATTRIBUTION.txt` maps each web filename back to its source filename.
