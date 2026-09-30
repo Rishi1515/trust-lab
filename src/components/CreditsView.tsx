@@ -18,8 +18,8 @@ export function CreditsView({ backHref }: { backHref: string }) {
 
       <h2>Research background</h2>
       <p>
-        The ideas TrustLab measures, automation bias, appropriate reliance, and the effects of stated confidence and
-        explanations, come from the research below. TrustLab does not reproduce these studies or claim their findings.
+        The ideas behind TrustLab come from this research on how people trust automated advice. TrustLab does not repeat
+        these studies or claim their results.
       </p>
       <h3>Works Cited</h3>
       <ul className="works-cited">
@@ -48,7 +48,7 @@ export function CreditsView({ backHref }: { backHref: string }) {
 
       <p className="actions-row">
         <a className="button" href={`#${backHref}`}>
-          Back to the experiment
+          Back to the game
         </a>
       </p>
     </div>

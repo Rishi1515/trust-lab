@@ -70,4 +70,4 @@ One row per scored scenario, in the order played. The warm-up is not exported.
 
 `sessionStorage["trustlab.session.v1"]` holds the seed, the run plan, recorded decisions, the current step and the ids of Cal lines already shown. It is cleared when the tab closes or a new run starts.
 
-`localStorage["trustlab.motion"]` holds only the player's explicit animation preference (`on` or `off`).
+Nothing is written to `localStorage` or cookies.

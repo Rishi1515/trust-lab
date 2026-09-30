@@ -19,15 +19,15 @@ async function pressButton(user: UserEvent, name: RegExp) {
 /** Reveal advice, pick an option with Space, submit with Enter. Keyboard only. */
 async function decide(user: UserEvent, optionIndex = 0) {
   expect(document.querySelector('.bubble')).toBeNull(); // Cal says nothing before the decision
-  await pressButton(user, /show the ai recommendation/i);
-  expect(document.activeElement).toBe(screen.getByRole('heading', { name: /ai recommendation/i }));
+  await pressButton(user, /show the ai's advice/i);
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: /ai advice/i }));
   const radios = screen.getAllByRole('radio');
   expect(radios).toHaveLength(3);
   await tabTo(user, radios[0]);
   if (optionIndex > 0) for (let i = 0; i < optionIndex; i++) await user.keyboard('{ArrowDown}');
   else await user.keyboard(' ');
   expect(radios.some((r) => (r as HTMLInputElement).checked)).toBe(true);
-  await pressButton(user, /submit decision/i);
+  await pressButton(user, /lock in my decision/i);
 }
 
 describe('keyboard-only decision flow', () => {
@@ -35,7 +35,7 @@ describe('keyboard-only decision flow', () => {
     const user = userEvent.setup();
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'TrustLab' })).toBeInTheDocument();
-    expect(screen.getByText(/the ai is simulated/i)).toBeInTheDocument();
+    expect(screen.getByText(/the ai is pretend/i)).toBeInTheDocument();
 
     await pressButton(user, /^start$/i);
     expect(window.location.hash).toBe('#/briefing');
@@ -46,7 +46,7 @@ describe('keyboard-only decision flow', () => {
     const feedbackTitle = screen.getByRole('heading', { level: 1 });
     expect(document.activeElement).toBe(feedbackTitle);
     expect(window.location.hash).toBe('#/feedback/warmup');
-    expect(screen.getByText(/practice round\. it is not scored/i)).toBeInTheDocument();
+    expect(screen.getByText(/practice round\. it doesn't count/i)).toBeInTheDocument();
     expect(document.querySelector('.bubble')).not.toBeNull();
   });
 
@@ -56,28 +56,29 @@ describe('keyboard-only decision flow', () => {
     await pressButton(user, /^start$/i);
     await pressButton(user, /start the practice round/i);
     await decide(user);
-    await pressButton(user, /start the scored scenarios/i);
+    await pressButton(user, /start the real game/i);
 
     for (let trial = 1; trial <= 12; trial++) {
-      expect(screen.getByText(`Scenario ${trial} of 12`)).toBeInTheDocument();
+      expect(screen.getByText(`Decision ${trial} of 12`)).toBeInTheDocument();
       await decide(user, trial % 3);
       expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1 }));
       if (trial === 6) {
         await pressButton(user, /^continue$/i);
-        expect(screen.getByRole('heading', { level: 1, name: /6 of 12 decisions done/i })).toBeInTheDocument();
-        expect(screen.queryByText(/overreliance/i)).toBeNull(); // no metrics at the midpoint
-        await pressButton(user, /continue to scenario 7/i);
+        expect(screen.getByRole('heading', { level: 1, name: /6 of 12 done/i })).toBeInTheDocument();
+        expect(screen.queryByText(/trusted bad advice/i)).toBeNull(); // no scores at the midpoint
+        await pressButton(user, /keep going/i);
       } else if (trial < 12) {
-        await pressButton(user, /next scenario/i);
+        await pressButton(user, /next decision/i);
       } else {
-        await pressButton(user, /see your results/i);
+        await pressButton(user, /see my score/i);
       }
     }
 
     expect(window.location.hash).toBe('#/results');
-    expect(screen.getByRole('heading', { level: 1, name: /calibrated|recalibration advised/i })).toBeInTheDocument();
-    const counts = screen.getByRole('table', { name: /reliance metrics/i });
-    expect(within(counts).getByText('Overreliance')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /calibrated|needs recalibration/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /trust score: \d+ out of 12/i })).toBeInTheDocument();
+    const counts = screen.getByRole('table', { name: /your numbers/i });
+    expect(within(counts).getByText('Trusted bad advice')).toBeInTheDocument();
     expect(document.body.textContent).not.toMatch(/NaN|undefined|Infinity/);
     expect(screen.getByText('Character art and sprites by P. Tejas Varma.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /download csv/i })).toBeInTheDocument();
@@ -101,7 +102,7 @@ describe('integrity guards', () => {
   it('replays the seed given in the address', () => {
     window.location.hash = '#/?seed=replay42';
     render(<App />);
-    expect(screen.getByText(/run seed replay42/)).toBeInTheDocument();
+    expect(screen.getByText(/game code replay42/)).toBeInTheDocument();
     expect(JSON.parse(sessionStorage.getItem(STORAGE_KEY)!).seed).toBe('replay42');
   });
 
@@ -145,7 +146,7 @@ describe('navigation guards', () => {
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     });
     expect(window.location.hash).toBe('#/feedback/warmup');
-    expect(screen.queryByRole('button', { name: /submit decision/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /lock in my decision/i })).toBeNull();
   });
 
   it('discards a stored session whose step does not match its decisions', () => {

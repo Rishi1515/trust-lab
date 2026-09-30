@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { BriefingView } from '../components/BriefingView';
 import { CreditsView } from '../components/CreditsView';
 import { FeedbackView } from '../components/FeedbackView';
@@ -8,13 +8,14 @@ import { MethodView } from '../components/MethodView';
 import { MidpointView } from '../components/MidpointView';
 import { ResultsView } from '../components/ResultsView';
 import { ScenarioView } from '../components/ScenarioView';
+import { SCENARIOS } from '../data/scenarios';
 import { MIDPOINT_AFTER, SCORED_TRIALS } from '../experiment/assignment';
 import { isValidSeed, newSeed } from '../experiment/rng';
+import { buildTrialResults, evaluateDecision, resultBand, summarise } from '../experiment/scoring';
 import type { Session } from '../types/session';
 import { isInfoPath, navigate, readHash, replacePath, useHashPath } from './router';
 import { canonicalPath, createSession, decisionFor, loadSession, presentTrial, saveSession, sessionReducer } from './session';
-
-const MOTION_KEY = 'trustlab.motion';
+import { cueForBand, cueForDecision, playCue } from './sound';
 
 function initialSession(): Session {
   const stored = loadSession();
@@ -24,26 +25,15 @@ function initialSession(): Session {
   return stored ?? createSession(newSeed());
 }
 
-function initialMotion(): 'on' | 'off' {
-  try {
-    const saved = localStorage.getItem(MOTION_KEY);
-    if (saved === 'on' || saved === 'off') return saved;
-  } catch {
-    // localStorage unavailable: fall through to the system preference.
-  }
-  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on';
-}
-
 function continueLabel(trial: number | 'warmup'): string {
-  if (trial === 'warmup') return 'Start the scored scenarios';
-  if (trial === SCORED_TRIALS) return 'See your results';
+  if (trial === 'warmup') return 'Start the real game';
+  if (trial === SCORED_TRIALS) return 'See my score';
   if (trial === MIDPOINT_AFTER) return 'Continue';
-  return `Next scenario (${trial + 1} of ${SCORED_TRIALS})`;
+  return `Next decision (${trial + 1} of ${SCORED_TRIALS})`;
 }
 
 export function App() {
   const [session, dispatch] = useReducer(sessionReducer, undefined, initialSession);
-  const [motion, setMotion] = useState(initialMotion);
   const path = useHashPath();
   const canonical = canonicalPath(session.step);
   const lastCanonical = useRef(canonical);
@@ -70,18 +60,18 @@ export function App() {
     window.scrollTo(0, 0);
   }, [view]);
 
-  useEffect(() => {
-    document.documentElement.dataset.motion = motion;
-  }, [motion]);
+  // Sounds play inside click handlers, which is what browsers require before audio can start.
+  function submitDecision(trial: number | 'warmup', chosenActionId: string, evidenceMs: number, decisionMs: number) {
+    const { correct, pattern } = evaluateDecision(presentTrial(session, trial), chosenActionId);
+    playCue(cueForDecision(correct, pattern));
+    dispatch({ type: 'submit', trial, chosenActionId, evidenceMs, decisionMs });
+  }
 
-  function toggleMotion() {
-    const next = motion === 'on' ? 'off' : 'on';
-    setMotion(next);
-    try {
-      localStorage.setItem(MOTION_KEY, next);
-    } catch {
-      // Preference just will not persist.
+  function continueFromFeedback(trial: number | 'warmup') {
+    if (trial === SCORED_TRIALS) {
+      playCue(cueForBand(resultBand(summarise(buildTrialResults(session.plan, session.decisions, SCENARIOS)))));
     }
+    dispatch({ type: 'continue' });
   }
 
   function restart(seed: string) {
@@ -96,15 +86,19 @@ export function App() {
       case 'intro':
         return <IntroView seed={session.seed} onStart={() => dispatch({ type: 'open-briefing' })} />;
       case 'briefing':
-        return <BriefingView seed={session.seed} onStartWarmup={() => dispatch({ type: 'start-warmup' })} />;
+        return (
+          <BriefingView
+            seed={session.seed}
+            returning={Boolean(session.returning)}
+            onStartWarmup={() => dispatch({ type: 'start-warmup' })}
+          />
+        );
       case 'scenario':
         return (
           <ScenarioView
             trial={step.trial}
             scenario={presentTrial(session, step.trial)}
-            onSubmit={(chosenActionId, evidenceMs, decisionMs) =>
-              dispatch({ type: 'submit', trial: step.trial, chosenActionId, evidenceMs, decisionMs })
-            }
+            onSubmit={(chosenActionId, evidenceMs, decisionMs) => submitDecision(step.trial, chosenActionId, evidenceMs, decisionMs)}
           />
         );
       case 'feedback': {
@@ -116,7 +110,7 @@ export function App() {
             scenario={presentTrial(session, step.trial)}
             decision={decision}
             continueLabel={continueLabel(step.trial)}
-            onContinue={() => dispatch({ type: 'continue' })}
+            onContinue={() => continueFromFeedback(step.trial)}
           />
         );
       }
@@ -128,7 +122,7 @@ export function App() {
   }
 
   return (
-    <Layout experimentHref={canonical} current={view} motion={motion} onToggleMotion={toggleMotion}>
+    <Layout experimentHref={canonical} current={view}>
       <div key={view} className="view">
         {renderView()}
       </div>

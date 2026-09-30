@@ -48,7 +48,7 @@ function submit(state: Session, action: Extract<SessionAction, { type: 'submit' 
 
   const result = evaluateDecision(scenario, action.chosenActionId);
   const trigger = action.trial === 'warmup'
-    ? 'warmup'
+    ? result.correct ? 'warmup' : 'warmup-wrong'
     : feedbackTrigger(result.pattern, scenario.explanationMode === 'rationale', result.investigated);
   const line = selectCalLine(trigger, state.calHistory, state.seed);
   const decision: Decision = {
@@ -93,7 +93,7 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
       return next(state);
     case 'restart':
       // A fresh session: nothing from the previous run carries into the next run's scores.
-      return createSession(action.seed, { kind: 'briefing' });
+      return { ...createSession(action.seed, { kind: 'briefing' }), returning: true };
   }
 }
 

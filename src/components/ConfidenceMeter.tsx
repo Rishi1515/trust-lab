@@ -1,16 +1,12 @@
 import type { Confidence } from '../types/scenario';
 
-const LABELS: Record<Confidence, string> = { 0.95: 'high', 0.8: 'medium', 0.65: 'moderate' };
-
-/** Confidence as a number plus a plain label. The bar repeats the number and is hidden from screen readers. */
+/** The AI's claimed confidence as plain words plus a number; the bar repeats it and is hidden from screen readers. */
 export function ConfidenceMeter({ value }: { value: Confidence }) {
   const percent = Math.round(value * 100);
   return (
     <div className="confidence">
-      <span className="mono label">Stated confidence</span>
-      <span className="mono confidence-value">
-        {percent}% <span className="confidence-word">({LABELS[value]})</span>
-      </span>
+      <span className="mono label">AI says it is</span>
+      <span className="mono confidence-value">{percent}% sure</span>
       <span className="confidence-bar" aria-hidden="true">
         <span style={{ width: `${percent}%` }} />
       </span>

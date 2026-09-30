@@ -5,11 +5,9 @@ type Props = {
   children: ReactNode;
   experimentHref: string;
   current: string;
-  motion: 'on' | 'off';
-  onToggleMotion: () => void;
 };
 
-export function Layout({ children, experimentHref, current, motion, onToggleMotion }: Props) {
+export function Layout({ children, experimentHref, current }: Props) {
   const link = (href: string, label: string, active: boolean) => (
     <a href={`#${href}`} aria-current={active ? 'page' : undefined}>
       {label}
@@ -34,21 +32,16 @@ export function Layout({ children, experimentHref, current, motion, onToggleMoti
           TrustLab
         </a>
         <nav aria-label="Site">
-          {link(experimentHref, 'Experiment', inFlow)}
-          {link('/method', 'Method', current === '/method')}
+          {link(experimentHref, 'Play', inFlow)}
+          {link('/method', 'How it works', current === '/method')}
           {link('/credits', 'Credits', current === '/credits')}
         </nav>
       </header>
       <main id="main">{children}</main>
       <footer className="site-footer">
-        <p>Simulated AI advice from a fixed scenario bank. Your results stay in this browser.</p>
-        <p className="footer-row">
-          <button type="button" className="link-button" aria-pressed={motion === 'off'} onClick={onToggleMotion}>
-            {motion === 'off' ? 'Animations off' : 'Animations on'}
-          </button>
-          <span className="mono">
-            v{APP_VERSION} · bank {SCENARIO_BANK_VERSION}
-          </span>
+        <p>The AI advice here is pretend and written in advance. Your answers stay in this browser.</p>
+        <p className="mono">
+          v{APP_VERSION} · cases {SCENARIO_BANK_VERSION}
         </p>
       </footer>
     </>

@@ -43,6 +43,8 @@ export type Session = {
   step: Step;
   /** Ids of Cal lines already spoken, oldest first. Drives cooldowns. */
   calHistory: string[];
+  /** True when this run was started from a previous run's results ("play again"). */
+  returning?: boolean;
 };
 
 export type ReliancePattern =

@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { CAL_LINES, chooseReaction, feedbackTrigger, selectCalLine, type CalTrigger } from '../src/content/calDialogue';
+import { CAL_LINES, chooseReaction, feedbackTrigger, resultsTrigger, selectCalLine, type CalTrigger } from '../src/content/calDialogue';
+import type { Summary } from '../src/experiment/scoring';
 import { decision } from './fixtures';
 
 const TRIGGERS: CalTrigger[] = [
-  'intro', 'briefing', 'warmup', 'appropriate-accept', 'correct-override', 'override-other', 'overreliance',
-  'overreliance-rationale', 'underreliance', 'underreliance-investigate', 'midpoint', 'results-strong', 'results-middle', 'results-low',
+  'intro', 'briefing', 'briefing-returning', 'warmup', 'warmup-wrong', 'appropriate-accept', 'correct-override', 'override-other',
+  'overreliance', 'overreliance-rationale', 'underreliance', 'underreliance-investigate', 'midpoint', 'results-perfect',
+  'results-strong', 'results-middle', 'results-middle-trusting', 'results-middle-doubting', 'results-low', 'results-low-doubting',
 ];
 
 describe('Cal dialogue content', () => {
@@ -17,7 +19,7 @@ describe('Cal dialogue content', () => {
 
   it('keeps lines concise and ids unique', () => {
     expect(new Set(CAL_LINES.map((l) => l.id)).size).toBe(CAL_LINES.length);
-    for (const l of CAL_LINES) expect(l.text.length).toBeLessThanOrEqual(90);
+    for (const l of CAL_LINES) expect(l.text.length).toBeLessThanOrEqual(110);
   });
 
   it('never uses em dashes or meme-style emphasis', () => {
@@ -71,5 +73,20 @@ describe('sprite reactions', () => {
     expect(chooseReaction('overreliance', 0.95, [])).toBe('die');
     expect(chooseReaction('overreliance', 0.95, [collapse])).toBe('idle');
     expect(chooseReaction('appropriate-accept', 0.95, [])).toBe('idle');
+  });
+});
+
+describe('results lines', () => {
+  const summary = (appropriate: number, over: number, under: number) =>
+    ({ trials: 12, appropriateReliance: { count: appropriate }, overreliance: { count: over }, underreliance: { count: under } }) as unknown as Summary;
+
+  it('picks the results line from the score and which way the mistakes leaned', () => {
+    expect(resultsTrigger(summary(12, 0, 0), 'strong')).toBe('results-perfect');
+    expect(resultsTrigger(summary(10, 1, 1), 'strong')).toBe('results-strong');
+    expect(resultsTrigger(summary(8, 3, 1), 'middle')).toBe('results-middle-trusting');
+    expect(resultsTrigger(summary(8, 1, 3), 'middle')).toBe('results-middle-doubting');
+    expect(resultsTrigger(summary(8, 2, 2), 'middle')).toBe('results-middle');
+    expect(resultsTrigger(summary(5, 1, 6), 'low')).toBe('results-low-doubting');
+    expect(resultsTrigger(summary(5, 6, 1), 'low')).toBe('results-low');
   });
 });

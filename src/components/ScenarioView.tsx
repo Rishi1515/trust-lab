@@ -39,7 +39,7 @@ export function ScenarioView({ trial, scenario, onSubmit }: Props) {
   function submit(event: FormEvent) {
     event.preventDefault();
     if (!choice) {
-      setError('Choose one of the three actions first.');
+      setError('Pick one of the three options first.');
       return;
     }
     const now = performance.now();
@@ -55,7 +55,7 @@ export function ScenarioView({ trial, scenario, onSubmit }: Props) {
         <p className="lede">{scenario.brief}</p>
 
         <section className="panel" aria-labelledby="evidence-heading">
-          <h2 id="evidence-heading">Evidence</h2>
+          <h2 id="evidence-heading">The facts</h2>
           <dl className="facts">
             {scenario.facts.map((fact) => (
               <div key={fact.label} className="fact">
@@ -69,33 +69,33 @@ export function ScenarioView({ trial, scenario, onSubmit }: Props) {
         {!revealed ? (
           <div className="actions-row">
             <button type="button" className="button primary" onClick={reveal}>
-              Show the AI recommendation
+              Show the AI's advice
             </button>
           </div>
         ) : (
           <>
             <section className="panel advice" aria-labelledby="advice-heading">
               <h2 id="advice-heading" tabIndex={-1} ref={adviceHeading}>
-                AI recommendation <span className="tag mono">simulated</span>
+                AI advice <span className="tag mono">pretend</span>
               </h2>
               <p className="advice-action">
-                <span className="visually-hidden">Recommended action: </span>
+                <span className="visually-hidden">The AI recommends: </span>
                 {recommended.label}
               </p>
               <ConfidenceMeter value={scenario.confidence} />
               {scenario.explanationMode === 'rationale' && scenario.aiExplanation ? (
                 <div className="advice-reasoning">
-                  <p className="mono label">Reasoning</p>
+                  <p className="mono label">Why it thinks so</p>
                   <p>{scenario.aiExplanation}</p>
                 </div>
               ) : (
-                <p className="advice-none">No reasoning was provided with this recommendation.</p>
+                <p className="advice-none">The AI did not explain this one.</p>
               )}
             </section>
 
             <form className="decision" onSubmit={submit} noValidate>
               <fieldset>
-                <legend>Your decision</legend>
+                <legend>What do you do?</legend>
                 {scenario.actions.map((action) => (
                   <label key={action.id} className={`option${choice === action.id ? ' selected' : ''}`}>
                     <input
@@ -110,8 +110,8 @@ export function ScenarioView({ trial, scenario, onSubmit }: Props) {
                     />
                     <span className="option-label">{action.label}</span>
                     <span className="option-tags">
-                      {action.id === recommended.id && <span className="tag mono tag-ai">AI recommends</span>}
-                      {action.investigative && <span className="tag mono">gathers evidence</span>}
+                      {action.id === recommended.id && <span className="tag mono tag-ai">AI's pick</span>}
+                      {action.investigative && <span className="tag mono">checks first</span>}
                     </span>
                   </label>
                 ))}
@@ -123,14 +123,14 @@ export function ScenarioView({ trial, scenario, onSubmit }: Props) {
               )}
               <div className="actions-row">
                 <button type="submit" className="button primary">
-                  Submit decision
+                  Lock in my decision
                 </button>
               </div>
             </form>
           </>
         )}
       </div>
-      <CalPanel note="Cal comments after you decide, never before." />
+      <CalPanel note="Cal only speaks after you decide." />
     </div>
   );
 }

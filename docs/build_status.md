@@ -19,7 +19,7 @@ Phases 1 to 7 are complete. Phase 8 (deployment) is ready. The GitHub Actions wo
 | Check build uses the Pages base path | `npm run check:build` |
 | Everything, as CI runs it | `npm run verify` |
 
-Last local result: 471 tests passed; type check, lint, build and base-path check all clean.
+Last local result: 475 tests passed; type check, lint, build and base-path check all clean.
 
 ## Completed requirements
 
@@ -47,7 +47,7 @@ Last local result: 471 tests passed; type check, lint, build and base-path check
 ### Phase 5: Character
 - Cal's idle, audit strike and collapse animations on a stage with aligned baselines.
 - Risk skull marker, torch accents and dialogue bubbles.
-- Reduced motion shows fixed frames. There is also a footer toggle, stored in `localStorage`.
+- Reduced motion (system setting) shows fixed frames. The on/off switches were removed at Rishi's request.
 
 ### Phase 6: Polish
 - Responsive at 390 px and 1280 px with no horizontal overflow. This was checked during the build session with a Playwright script that is not part of the repository.
@@ -89,6 +89,11 @@ Last local result: 471 tests passed; type check, lint, build and base-path check
 | D13 | The shadowless `torch.png` stands beside Cal on the opening screen. `torch2.png` appears only at the midpoint. | Its base lines up with Cal's feet, and the brief says not to show torches everywhere. |
 | D14 | The Credits page shows the credit line, one image of Cal, the licences, and a Works Cited list (MLA 9) of the research the measures draw on. It does not list per-sprite source details; that mapping stays in `public/sprites/ATTRIBUTION.txt`. | Rishi's request. The brief's attribution mapping is kept, but not shown on the page. |
 | D15 | Effects never return a value; `window.scrollTo` is called inside braces. | Current Chrome returns a Promise from `scrollTo`, and React treated it as a cleanup function, which crashed navigation. `tests/setup.ts` stubs `scrollTo` to return a Promise so the tests catch this. |
+| D16 | The results page shows the trust score (appropriate reliance, out of 12) in a ring that fills once. The number itself is static text. | Rishi asked for a score circle. The brief warns against a single theatrical score and animated counters, so the ring is labelled as a trust score, all underlying counts stay beside it, and it is not animated for reduced-motion visitors. |
+| D17 | Cal's sounds are synthesised with the Web Audio API: happy for the best choice, a flat "meh" for rejecting bad advice but picking another wrong option, grumpy for any other miss. The results page plays one sound by score band. | Rishi's request. It avoids downloading or licensing audio files, and sounds only play inside click handlers, which browsers require before audio can start. |
+| D18 | Removed the footer sound and animation switches. Motion follows the visitor's system setting only. | Rishi's request: the switches were overcoded. |
+| D19 | Plain-language copy throughout: "Trusted bad advice" instead of "Overreliance", "Best choice" instead of "Documented action", a "How it works" page, "game code" instead of "seed". Exports and docs keep the technical names. | Rishi's request, so a first-time visitor can play without prior knowledge. Scenario content is unchanged, so the scenario bank stays at 1.0.0. |
+| D20 | More Cal lines, including returning players, practice misses, the midpoint, and results lines that depend on whether mistakes leaned towards trusting or doubting. Equal-priority lines are picked by the seed. | Rishi's request for more wit. Cal still never speaks while a scored decision is open. |
 
 ## Known issues and open items
 

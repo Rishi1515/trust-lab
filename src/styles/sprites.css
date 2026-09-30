@@ -47,15 +47,11 @@
 .sprite-inline { display: inline-block; vertical-align: middle; }
 .sprite-inline.sprite--skull { --s: 1; }
 
-/* Reduced motion: a stable representative frame and no animation. */
+/* Reduced motion (the visitor's system setting): a stable representative frame, no animation. */
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion='on']) .sprite {
+  .sprite {
     animation: none;
     background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
   }
-}
-:root[data-motion='off'] .sprite {
-  animation: none;
-  background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
 }
 

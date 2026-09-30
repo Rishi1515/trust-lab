@@ -1,16 +1,12 @@
-/** Plain-language metric definitions shared by the results screen and the method page. */
+/** Plain-language explanations shared by the results screen and the "How it works" page. */
 export const METRIC_TEXT = {
-  accuracy: 'Scenarios where you chose the documented correct action.',
-  appropriate: 'You accepted advice that was right, or rejected advice that was wrong.',
-  overreliance: 'You accepted a recommendation that was wrong.',
-  underreliance:
-    'You rejected a recommendation that was right. Every scenario can be solved from the facts shown, so the right action was supported on screen.',
-  investigation:
-    'You chose the option that gathers more evidence. Reported on its own, because investigating is sometimes right and sometimes an unnecessary delay.',
-  confidence:
-    'Your acceptance rate for advice shown at 95% confidence minus your rate at 65%. Positive means the bigger number drew more agreement.',
-  explanation: 'Your acceptance rate when the AI’s reasoning was shown minus your rate when it was withheld.',
-  discrimination:
-    'Your acceptance rate for right advice minus your rate for wrong advice. The larger this gap, the better your trust tracked the advice’s quality.',
-  time: 'Time from the scenario appearing to your decision. Descriptive only: faster is not better.',
+  appropriate: 'You followed the AI when it was right, or went against it when it was wrong.',
+  accuracy: 'You picked the best option.',
+  overreliance: 'You followed the AI when it was wrong.',
+  underreliance: 'You went against the AI when it was right.',
+  investigation: 'You picked the "check first" option. Sometimes that is smart, sometimes it just wastes time.',
+  discrimination: 'How much more often you followed good advice than bad advice. Bigger is better.',
+  confidence: 'How much more often you agreed when the AI said "95% sure" than when it said "65% sure". Near zero means the number did not sway you.',
+  explanation: 'How much more often you agreed when the AI explained itself than when it did not. Near zero means explanations did not sway you.',
+  time: 'Just for interest. Faster is not better.',
 } as const;

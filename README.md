@@ -99,7 +99,8 @@ Design choices:
 
 - **State.** State is one reducer (`src/app/session.ts`). It is saved to `sessionStorage` so a refresh resumes the run, and discarded when the tab closes or the scenario bank version changes.
 - **Routing.** Routing is hash based (`#/scenario/3`), so GitHub Pages needs no 404 redirect. A guard corrects any flow address that does not match the current step, so the back button cannot reopen a submitted decision.
-- **Sprites.** Sprites are CSS `steps()` animations with integer scaling and `image-rendering: pixelated`. They never block input. With reduced motion (the system setting or the footer toggle), each sprite shows one fixed representative frame.
+- **Sprites.** Sprites are CSS `steps()` animations with integer scaling and `image-rendering: pixelated`. They never block input. If the visitor's system asks for reduced motion, each sprite shows one fixed frame and the score ring does not animate.
+- **Sound.** Cal's reactions (happy, grumpy, and a flat "meh" for half-right calls) are synthesised in the browser with the Web Audio API. There are no audio files, and sounds only play right after a click.
 
 ### Dependencies
 
@@ -115,7 +116,7 @@ There is no router, state library, chart library or UI kit. The charts are CSS b
 ## Privacy
 
 - **No collection.** TrustLab collects no name, email, demographics or free text. There are no analytics or trackers. The only network requests are for the site's own static files.
-- **Storage.** Decisions live in the tab's `sessionStorage`. `localStorage` holds only the animation on/off preference.
+- **Storage.** Decisions live in the tab's `sessionStorage`. Nothing is written to `localStorage` or cookies.
 - **Export.** Downloads are generated in the browser and contain no personal identifiers.
 
 ## Limitations
