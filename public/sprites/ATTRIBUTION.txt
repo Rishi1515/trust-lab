@@ -1,0 +1,10 @@
+Character art and sprites by P. Tejas Varma. All rights reserved; used in TrustLab with permission.
+These files are not covered by the repository's MIT licence.
+
+Web file              Source file                        Sheet       Frames
+cal-idle.png          skelly.png                         96 x 48     2 x (48 x 48)
+cal-audit-strike.png  Skeleton_01_White_Attack1.png      960 x 64    10 x (96 x 64)
+cal-collapse.png      Skeleton_01_White_Die.png          1248 x 64   13 x (96 x 64)
+torch.png             torch.png                          192 x 48    4 x (48 x 48)
+
+Editable source: Sprite-0001.aseprite (kept in source-assets/, never served).
