@@ -34,6 +34,9 @@ export function IntroView({ seed, onStart }: { seed: string; onStart: () => void
           <button type="button" className="button primary" onClick={onStart}>
             Start
           </button>
+          <a className="text-link" href="#/why">
+            Why I made this
+          </a>
           <a className="text-link" href="#/method">
             How it works
           </a>

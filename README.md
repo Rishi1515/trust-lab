@@ -6,7 +6,7 @@ TrustLab is a browser-based decision game. It measures whether a player appropri
 
 It takes an estimated 10 to 12 minutes to play. There is no sign-in, no API key and no server, and nothing leaves the browser.
 
-*Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P. Tejas Varma.*
+*Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P. Tejas Varma.* More of Tejas's work: [nubzoro.itch.io](https://nubzoro.itch.io/)
 
 | Scenario | Feedback | Results |
 |---|---|---|

@@ -2,6 +2,8 @@
 
 Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P. Tejas Varma.
 
+More of Tejas's work: https://nubzoro.itch.io/
+
 ## Licences
 
 - **Code:** MIT (see `LICENSE`).
@@ -10,7 +12,7 @@ Designed and developed by Vegesna Rishi Varma. Original character artwork and sp
 
 ## Research background
 
-TrustLab measures automation bias, appropriate reliance, and the effects of stated confidence and explanations. These ideas come from the research below. TrustLab does not reproduce these studies or claim their findings.
+TrustLab measures automation bias, appropriate reliance, and the effects of stated confidence and explanations. These ideas come from the research below. The site's "Why" page cites it in short MLA form. TrustLab does not reproduce these studies or claim their findings.
 
 ### Works Cited
 
@@ -27,6 +29,8 @@ Parasuraman, Raja, and Victor Riley. "Humans and Automation: Use, Misuse, Disuse
 Schemmer, Max, et al. "Appropriate Reliance on AI Advice: Conceptualization and the Effect of Explanations." *Proceedings of the 28th International Conference on Intelligent User Interfaces*, Association for Computing Machinery, 2023, pp. 410–22, https://doi.org/10.1145/3581641.3584066.
 
 Skitka, Linda J., et al. "Does Automation Bias Decision-Making?" *International Journal of Human-Computer Studies*, vol. 51, no. 5, 1999, pp. 991–1006, https://doi.org/10.1006/ijhc.1999.0252.
+
+Tinkoff, Dan, et al. "The State of AI in 2026: On the Road to ROI." *McKinsey & Company*, 25 Aug. 2026, www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai.
 
 Zhang, Yunfeng, et al. "Effect of Confidence and Explanation on Accuracy and Trust Calibration in AI-Assisted Decision Making." *Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency*, Association for Computing Machinery, 2020, pp. 295–305, https://doi.org/10.1145/3351095.3372852.
 

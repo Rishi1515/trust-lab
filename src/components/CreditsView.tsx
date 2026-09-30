@@ -3,6 +3,11 @@ import { SOURCES } from '../content/sources';
 import { PageTitle } from './PageTitle';
 import { Sprite } from './Sprite';
 
+const ARTIST_URL = 'https://nubzoro.itch.io/';
+
+/** MLA 9: DOIs keep https://doi.org/; other web addresses drop the protocol. */
+const shownUrl = (url: string) => (url.startsWith('https://doi.org/') ? url : url.replace(/^https?:\/\//, ''));
+
 export function CreditsView({ backHref }: { backHref: string }) {
   return (
     <div className="content prose">
@@ -10,23 +15,27 @@ export function CreditsView({ backHref }: { backHref: string }) {
       <PageTitle>Credits</PageTitle>
       <div className="credit-block">
         <Sprite name="idle" label="Cal, TrustLab's skeletal risk officer, standing at rest." />
-        <p className="credit-statement">
-          Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P.
-          Tejas Varma.
-        </p>
+        <div>
+          <p className="credit-statement">
+            Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P.
+            Tejas Varma.
+          </p>
+          <p className="credit-link">
+            More of Tejas's work: <a href={ARTIST_URL}>{ARTIST_URL.replace('https://', '').replace(/\/$/, '')}</a>
+          </p>
+        </div>
       </div>
 
       <h2>Research background</h2>
       <p>
-        The ideas behind TrustLab come from this research on how people trust automated advice. TrustLab does not repeat
-        these studies or claim their results.
+        The ideas behind TrustLab come from this research on how people trust automated advice. The "Why" page cites it in
+        short form. TrustLab does not repeat these studies or claim their results.
       </p>
       <h3>Works Cited</h3>
       <ul className="works-cited">
         {SOURCES.map((s) => (
-          <li key={s.doi}>
-            {s.authors} “{s.title}” <em>{s.container}</em>, {s.details},{' '}
-            <a href={`https://doi.org/${s.doi}`}>https://doi.org/{s.doi}</a>.
+          <li key={s.url}>
+            {s.authors} “{s.title}” <em>{s.container}</em>, {s.details}, <a href={s.url}>{shownUrl(s.url)}</a>.
           </li>
         ))}
       </ul>

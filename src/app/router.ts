@@ -31,7 +31,7 @@ export function replacePath(path: string): void {
   window.dispatchEvent(new HashChangeEvent('hashchange'));
 }
 
-export const INFO_PATHS = ['/method', '/credits'] as const;
+export const INFO_PATHS = ['/why', '/method', '/credits'] as const;
 export function isInfoPath(path: string): boolean {
   return (INFO_PATHS as readonly string[]).includes(path);
 }

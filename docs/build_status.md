@@ -19,7 +19,7 @@ Phases 1 to 7 are complete. Phase 8 (deployment) is ready. The GitHub Actions wo
 | Check build uses the Pages base path | `npm run check:build` |
 | Everything, as CI runs it | `npm run verify` |
 
-Last local result: 475 tests passed; type check, lint, build and base-path check all clean.
+Last local result: 476 tests passed; type check, lint, build and base-path check all clean.
 
 ## Completed requirements
 
@@ -94,6 +94,7 @@ Last local result: 475 tests passed; type check, lint, build and base-path check
 | D18 | Removed the footer sound and animation switches. Motion follows the visitor's system setting only. | Rishi's request: the switches were overcoded. |
 | D19 | Plain-language copy throughout: "Trusted bad advice" instead of "Overreliance", "Best choice" instead of "Documented action", a "How it works" page, "game code" instead of "seed". Exports and docs keep the technical names. | Rishi's request, so a first-time visitor can play without prior knowledge. Scenario content is unchanged, so the scenario bank stays at 1.0.0. |
 | D20 | More Cal lines, including returning players, practice misses, the midpoint, and results lines that depend on whether mistakes leaned towards trusting or doubting. Equal-priority lines are picked by the seed. | Rishi's request for more wit. Cal still never speaks while a scored decision is open. |
+| D21 | A "Why" page (`#/why`) explains the motivation in Rishi's voice, with MLA in-text citations that link to the Works Cited list. Cal greets the reader. McKinsey's 2026 State of AI survey was added as a source; the other claims come from sources already listed, each checked against the paper's abstract. The Credits page links to Tejas's itch.io page. | Rishi's request. Every in-text citation has a matching Works Cited entry. |
 
 ## Known issues and open items
 

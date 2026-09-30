@@ -5,6 +5,7 @@ import { FeedbackView } from '../components/FeedbackView';
 import { IntroView } from '../components/IntroView';
 import { Layout } from '../components/Layout';
 import { MethodView } from '../components/MethodView';
+import { WhyView } from '../components/WhyView';
 import { MidpointView } from '../components/MidpointView';
 import { ResultsView } from '../components/ResultsView';
 import { ScenarioView } from '../components/ScenarioView';
@@ -79,6 +80,7 @@ export function App() {
   }
 
   function renderView() {
+    if (view === '/why') return <WhyView backHref={canonical} />;
     if (view === '/method') return <MethodView backHref={canonical} seed={session.seed} />;
     if (view === '/credits') return <CreditsView backHref={canonical} />;
     const { step } = session;

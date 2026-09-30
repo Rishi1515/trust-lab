@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { isInfoPath } from '../app/router';
 import { APP_VERSION, SCENARIO_BANK_VERSION } from '../app/version';
 
 type Props = {
@@ -13,7 +14,7 @@ export function Layout({ children, experimentHref, current }: Props) {
       {label}
     </a>
   );
-  const inFlow = current !== '/method' && current !== '/credits';
+  const inFlow = !isInfoPath(current);
   return (
     <>
       <a
@@ -33,6 +34,7 @@ export function Layout({ children, experimentHref, current }: Props) {
         </a>
         <nav aria-label="Site">
           {link(experimentHref, 'Play', inFlow)}
+          {link('/why', 'Why', current === '/why')}
           {link('/method', 'How it works', current === '/method')}
           {link('/credits', 'Credits', current === '/credits')}
         </nav>

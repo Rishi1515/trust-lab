@@ -117,8 +117,9 @@ describe('integrity guards', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /cal, trustlab's skeletal risk officer/i })).toBeInTheDocument();
     const cited = screen.getByRole('heading', { name: 'Works Cited' }).nextElementSibling!;
-    expect(within(cited as HTMLElement).getAllByRole('listitem').length).toBeGreaterThanOrEqual(8);
-    expect(within(cited as HTMLElement).getAllByRole('link').every((a) => a.getAttribute('href')!.startsWith('https://doi.org/10.'))).toBe(true);
+    expect(within(cited as HTMLElement).getAllByRole('listitem').length).toBeGreaterThanOrEqual(9);
+    expect(within(cited as HTMLElement).getAllByRole('link').every((a) => a.getAttribute('href')!.startsWith('https://'))).toBe(true);
+    expect(screen.getByRole('link', { name: 'nubzoro.itch.io' })).toHaveAttribute('href', 'https://nubzoro.itch.io/');
   });
 });
 
@@ -167,5 +168,20 @@ describe('navigation guards', () => {
     await user.click(screen.getByRole('link', { name: /skip to content/i }));
     expect(window.location.hash).toBe('#/credits');
     expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1, name: 'Credits' }));
+  });
+});
+
+describe('why page', () => {
+  it('explains the motivation with citations that point to the Works Cited list', async () => {
+    render(<App />);
+    await act(async () => {
+      window.location.hash = '#/why';
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    expect(screen.getByRole('heading', { level: 1, name: 'Why TrustLab exists' })).toBeInTheDocument();
+    expect(document.querySelector('.bubble')).not.toBeNull();
+    const cites = [...document.querySelectorAll('a.cite')];
+    expect(cites.length).toBeGreaterThanOrEqual(4);
+    expect(cites.every((a) => a.getAttribute('href') === '#/credits')).toBe(true);
   });
 });
