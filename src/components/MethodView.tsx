@@ -16,7 +16,8 @@ export function MethodView({ backHref, seed }: { backHref: string; seed: string 
       <p>
         When a system gives advice, do people accept it when it is right and reject it when it is wrong? And does the way the
         advice is presented, a confidence figure and a written rationale, change that, independently of whether the advice is
-        correct?
+        correct? The concepts come from research on automation bias and appropriate reliance on AI advice; the sources are
+        listed on the Credits page.
       </p>
 
       <h2>What varies</h2>

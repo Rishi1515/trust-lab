@@ -114,7 +114,10 @@ describe('integrity guards', () => {
     expect(
       screen.getByText('Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P. Tejas Varma.'),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole('img').length).toBeGreaterThanOrEqual(6);
+    expect(screen.getByRole('img', { name: /cal, trustlab's skeletal risk officer/i })).toBeInTheDocument();
+    const cited = screen.getByRole('heading', { name: 'Works Cited' }).nextElementSibling!;
+    expect(within(cited as HTMLElement).getAllByRole('listitem').length).toBeGreaterThanOrEqual(8);
+    expect(within(cited as HTMLElement).getAllByRole('link').every((a) => a.getAttribute('href')!.startsWith('https://doi.org/10.'))).toBe(true);
   });
 });
 

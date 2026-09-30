@@ -263,10 +263,12 @@ thead th { border-top: 0; color: var(--bone-muted); font-weight: 500; font-size:
 .prose h2 { margin-top: 1.8em; }
 .definitions dt { font-weight: 650; margin-top: 12px; }
 .definitions dd { margin: 2px 0 0; color: var(--bone-muted); }
-.credit-statement { font-size: 1.1rem; border-left: 2px solid var(--ember); padding-left: 14px; }
-.art-list { list-style: none; padding: 0; display: grid; gap: 12px; }
-.art-list li { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: center; padding: 10px; background: var(--panel); border: 1px solid var(--border); }
-.art-frame { display: flex; justify-content: center; --s: 2; }
+.credit-block { display: flex; align-items: center; gap: 20px; margin: 8px 0 12px; --s: 2; }
+.credit-block .sprite { flex: none; }
+.credit-statement { font-size: 1.1rem; border-left: 2px solid var(--ember); padding-left: 14px; margin: 0; }
+/* MLA works-cited list: hanging indent, no bullets. */
+.works-cited { list-style: none; padding: 0; }
+.works-cited li { padding-left: 2em; text-indent: -2em; margin-bottom: 0.8em; overflow-wrap: anywhere; }
 
 .midpoint { padding-top: 12px; }
 
@@ -286,7 +288,7 @@ thead th { border-top: 0; color: var(--bone-muted); font-weight: 500; font-size:
   .summary { grid-template-columns: 1fr; }
   .bar-row { grid-template-columns: 1fr; gap: 4px; }
   .bar-value { text-align: left; }
-  .art-list li { grid-template-columns: 1fr; }
+  .credit-block { flex-direction: column; align-items: flex-start; }
   .panel { padding: 16px; }
   .site-header nav { gap: 14px; }
 }

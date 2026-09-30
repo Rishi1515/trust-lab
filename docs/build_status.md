@@ -87,6 +87,8 @@ Last local result: 471 tests passed; type check, lint, build and base-path check
 | D11 | Option order is shuffled per trial on a separate seeded stream. | The review found the correct answer was 1st in 5 of 12 scenarios. |
 | D12 | The intro and briefing do not state the 50% base rate. The method page does, with a warning. | Disclosing the base rate before play would change behaviour, but the method must stay transparent. |
 | D13 | The shadowless `torch.png` stands beside Cal on the opening screen. `torch2.png` appears only at the midpoint. | Its base lines up with Cal's feet, and the brief says not to show torches everywhere. |
+| D14 | The Credits page shows the credit line, one image of Cal, the licences, and a Works Cited list (MLA 9) of the research the measures draw on. It does not list per-sprite source details; that mapping stays in `public/sprites/ATTRIBUTION.txt`. | Rishi's request. The brief's attribution mapping is kept, but not shown on the page. |
+| D15 | Effects never return a value; `window.scrollTo` is called inside braces. | Current Chrome returns a Promise from `scrollTo`, and React treated it as a cleanup function, which crashed navigation. `tests/setup.ts` stubs `scrollTo` to return a Promise so the tests catch this. |
 
 ## Known issues and open items
 

@@ -59,10 +59,3 @@
   background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
 }
 
-/* Static art (credits page): always a single representative frame. */
-.sprite.sprite-static {
-  animation: none;
-  background-position-x: calc(var(--rest) * var(--fw) * var(--s) * -1px);
-}
-/* On the credits page, show the collapse mid-fall rather than as a flat pile. */
-.sprite-static.sprite--die { --rest: 6; }

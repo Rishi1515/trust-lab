@@ -2,39 +2,33 @@
 
 Designed and developed by Vegesna Rishi Varma. Original character artwork and sprite animations contributed by P. Tejas Varma.
 
-## Character art
-
-Cal and every sprite in TrustLab are original artwork by P. Tejas Varma. The web files are byte-for-byte copies of files in the supplied `sprites/sprites/` folder, with nothing redrawn; this was checked by comparing the files. Some were renamed for clarity; the mapping is below and in `public/sprites/ATTRIBUTION.txt`.
-
-| Web file | Source file | Sheet | Frames | Used for |
-|---|---|---|---|---|
-| `cal-idle.png` | `skelly.png` | 96 × 48 | 2 × 48 × 48 | Cal at rest on every screen |
-| `cal-audit-strike.png` | `Skeleton_01_White_Attack1.png` | 960 × 64 | 10 × 96 × 64 | Audit strike after correctly overruling 95% advice (max 2 per run) |
-| `cal-collapse.png` | `Skeleton_01_White_Die.png` | 1248 × 64 | 13 × 96 × 64 | Collapse after accepting 95% advice that was wrong (max 1 per run) |
-| `risk-skull.png` | `skull1-sheet.png` | 64 × 32 | 2 × 32 × 32 | Risk marker next to "Accepted wrong advice" |
-| `torch.png` | `torch.png` | 192 × 48 | 4 × 48 × 48 | Beside Cal on the opening screen |
-| `torch2.png` | `torch2.png` | 192 × 48 | 4 × 48 × 48 | Midpoint screen |
-
-The editable source `Sprite-0001.aseprite` is kept unchanged in `source-assets/` and is never served.
-
-These files from the supplied folder are deliberately not used in version one: the cat, goblin, goblin king, demon, ghost, bat and fish sprites, and the Player and Shadow sheets.
-
-### How the sprites are drawn
-
-- Sheets are animated with CSS `steps()`, integer scaling (3× on wide screens, 2× on narrow ones) and `image-rendering: pixelated`.
-- The 48 × 48 idle frame is offset inside a 96 × 64 stage so its feet line up with the reaction sheets' feet:
-  - idle feet: bottom opaque row 44, centre x 24
-  - reaction feet: row 64, centre x 45
-- With reduced motion (system setting or the footer toggle), each sprite shows one fixed representative frame.
-
 ## Licences
 
-| Part | Licence |
-|---|---|
-| Source code, tests, docs | MIT (see `LICENSE`) |
-| Character art and sprite sheets in `public/sprites/` and `source-assets/` | All rights reserved by P. Tejas Varma, used with permission. Not covered by the MIT licence. |
-| React, React DOM | MIT (runtime dependencies) |
-| Fonts | None bundled; system fonts only |
+- **Code:** MIT (see `LICENSE`).
+- **Character art and sprites:** all rights reserved by P. Tejas Varma, used with permission. The art is not covered by the MIT licence.
+- **File mapping:** `public/sprites/ATTRIBUTION.txt` maps each renamed web sprite back to its source file.
+
+## Research background
+
+TrustLab measures automation bias, appropriate reliance, and the effects of stated confidence and explanations. These ideas come from the research below. TrustLab does not reproduce these studies or claim their findings.
+
+### Works Cited
+
+Bansal, Gagan, et al. "Does the Whole Exceed Its Parts? The Effect of AI Explanations on Complementary Team Performance." *Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems*, Association for Computing Machinery, 2021, https://doi.org/10.1145/3411764.3445717.
+
+Buçinca, Zana, et al. "To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-Assisted Decision-Making." *Proceedings of the ACM on Human-Computer Interaction*, vol. 5, no. CSCW1, 2021, article 188, https://doi.org/10.1145/3449287.
+
+Dietvorst, Berkeley J., et al. "Algorithm Aversion: People Erroneously Avoid Algorithms after Seeing Them Err." *Journal of Experimental Psychology: General*, vol. 144, no. 1, 2015, pp. 114–26, https://doi.org/10.1037/xge0000033.
+
+Lee, John D., and Katrina A. See. "Trust in Automation: Designing for Appropriate Reliance." *Human Factors*, vol. 46, no. 1, 2004, pp. 50–80, https://doi.org/10.1518/hfes.46.1.50_30392.
+
+Parasuraman, Raja, and Victor Riley. "Humans and Automation: Use, Misuse, Disuse, Abuse." *Human Factors*, vol. 39, no. 2, 1997, pp. 230–53, https://doi.org/10.1518/001872097778543886.
+
+Schemmer, Max, et al. "Appropriate Reliance on AI Advice: Conceptualization and the Effect of Explanations." *Proceedings of the 28th International Conference on Intelligent User Interfaces*, Association for Computing Machinery, 2023, pp. 410–22, https://doi.org/10.1145/3581641.3584066.
+
+Skitka, Linda J., et al. "Does Automation Bias Decision-Making?" *International Journal of Human-Computer Studies*, vol. 51, no. 5, 1999, pp. 991–1006, https://doi.org/10.1006/ijhc.1999.0252.
+
+Zhang, Yunfeng, et al. "Effect of Confidence and Explanation on Accuracy and Trust Calibration in AI-Assisted Decision Making." *Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency*, Association for Computing Machinery, 2020, pp. 295–305, https://doi.org/10.1145/3351095.3372852.
 
 ## Repository
 
