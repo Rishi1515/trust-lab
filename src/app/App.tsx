@@ -48,7 +48,9 @@ export function App() {
   const canonical = canonicalPath(session.step);
   const lastCanonical = useRef(canonical);
 
-  useEffect(() => saveSession(session), [session]);
+  useEffect(() => {
+    saveSession(session);
+  }, [session]);
 
   // A new step pushes a history entry; any other flow address is corrected to the current step,
   // so the back button or an edited URL cannot reopen or skip a decision.
@@ -62,7 +64,11 @@ export function App() {
   }, [path, canonical]);
 
   const view = isInfoPath(path) ? path : canonical;
-  useEffect(() => window.scrollTo?.(0, 0), [view]);
+  // Braces matter: current Chrome returns a Promise from scrollTo, and an effect must never
+  // return anything but a cleanup function, or React crashes on the next page change.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
 
   useEffect(() => {
     document.documentElement.dataset.motion = motion;
