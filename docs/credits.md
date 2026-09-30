@@ -38,4 +38,4 @@ These files from the supplied folder are deliberately not used in version one: t
 
 ## Repository
 
-https://github.com/Rishi1515/trustlab
+https://github.com/Rishi1515/trust-lab

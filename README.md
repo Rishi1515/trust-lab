@@ -1,6 +1,6 @@
 # TrustLab
 
-**Live:** https://rishi1515.github.io/trustlab/
+**Live:** https://rishi1515.github.io/trust-lab/
 
 TrustLab is a browser-based decision game. It measures whether a player appropriately relies on, challenges or investigates simulated AI recommendations whose correctness, confidence and explanations vary under controlled conditions.
 
@@ -59,7 +59,7 @@ Requires Node.js 22 (the version CI uses; Vite 8 needs 20.19+ or 22.12+).
 
 ```bash
 npm ci
-npm run dev        # http://localhost:5173/trustlab/
+npm run dev        # http://localhost:5173/trust-lab/
 npm test           # unit and component tests
 npm run verify     # type check, lint, tests, production build, base-path check
 ```

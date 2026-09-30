@@ -1,7 +1,7 @@
 // Confirms the production build references assets under the GitHub Pages base path.
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
-const base = process.env.BASE_PATH ?? '/trustlab/';
+const base = process.env.BASE_PATH ?? '/trust-lab/';
 const html = readFileSync('dist/index.html', 'utf8');
 const problems = [];
 

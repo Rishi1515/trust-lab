@@ -2,7 +2,7 @@
 
 For the portfolio screen recording. It shows one full decision and the final metrics. Use seed `demo32`: its first scenario is a confidently wrong recommendation with reasoning shown.
 
-Open `https://rishi1515.github.io/trustlab/#/?seed=demo32` in a fresh tab (or a private window) at 1280 × 800.
+Open `https://rishi1515.github.io/trust-lab/#/?seed=demo32` in a fresh tab (or a private window) at 1280 × 800.
 
 | Time | On screen | Say (optional voice-over) |
 |---|---|---|

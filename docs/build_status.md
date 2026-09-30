@@ -11,7 +11,7 @@ Phases 1 to 7 are complete. Phase 8 (deployment) is ready. The GitHub Actions wo
 | Purpose | Command |
 |---|---|
 | Install | `npm ci` |
-| Dev server | `npm run dev` (http://localhost:5173/trustlab/) |
+| Dev server | `npm run dev` (http://localhost:5173/trust-lab/) |
 | Unit and component tests | `npm test` |
 | Type check (app + tests) | `npm run typecheck` |
 | Lint | `npm run lint` |
@@ -96,7 +96,7 @@ Last local result: 471 tests passed; type check, lint, build and base-path check
   3. Confirm that every sprite file is Tejas's original work. `Skeleton_01_White_*` follows an asset-pack naming pattern, and the brief forbids calling the art stock.
   4. Time one real run. The "estimated 10 to 12 minutes" figure has not been measured.
 - **Sprite mapping verified.** All six web sprites are byte-identical to the files in `Downloads/sprites/sprites/`.
-- **Not yet deployed.** Push to `github.com/Rishi1515/trustlab`, then set Settings → Pages → Source to GitHub Actions.
+- **Not yet deployed.** Push to `github.com/Rishi1515/trust-lab`, then set Settings → Pages → Source to GitHub Actions.
 - **Timing** resets if the page is refreshed mid-scenario. This is documented as a limitation.
 - **Commit author.** Commits were made in the build session under "Vegesna Rishi Varma <Rishi1515@users.noreply.github.com>" with a Claude co-author trailer. Rishi can amend the email if GitHub does not link it to his account.
 
