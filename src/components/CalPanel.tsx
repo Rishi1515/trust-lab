@@ -7,7 +7,7 @@ type Props = {
   note?: string;
   reaction?: Reaction;
   /** Optional torch standing beside Cal. Used sparingly: opening screen only. */
-  accent?: 'torch' | 'torch2';
+  accent?: 'torch';
 };
 
 /** Cal's corner: the sprite on a fixed stage, plus at most one line of dialogue. Remounts with each view. */

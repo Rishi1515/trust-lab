@@ -114,6 +114,34 @@ export function canonicalPath(step: Step): string {
   }
 }
 
+const isTrial = (t: unknown): t is number | 'warmup' =>
+  t === 'warmup' || (typeof t === 'number' && Number.isInteger(t) && t >= 1 && t <= SCORED_TRIALS);
+
+/** The recorded decisions must be exactly the ones the current step implies. */
+function isConsistent(s: Session): boolean {
+  const { step } = s;
+  if ((step.kind === 'scenario' || step.kind === 'feedback') && !isTrial(step.trial)) return false;
+  const expected = ((): number => {
+    switch (step.kind) {
+      case 'intro':
+      case 'briefing':
+        return 0;
+      case 'scenario':
+        return step.trial === 'warmup' ? 0 : step.trial - 1;
+      case 'feedback':
+        return step.trial === 'warmup' ? 0 : step.trial;
+      case 'midpoint':
+        return MIDPOINT_AFTER;
+      case 'results':
+        return SCORED_TRIALS;
+    }
+  })();
+  const warmupDone = !(step.kind === 'intro' || step.kind === 'briefing' || (step.kind === 'scenario' && step.trial === 'warmup'));
+  if (Boolean(s.warmup) !== warmupDone) return false;
+  if (s.decisions.length !== expected) return false;
+  return s.decisions.every((d, i) => d.trial === i + 1 && d.scenarioId === s.plan[i].scenarioId);
+}
+
 /** Restore a session from sessionStorage, discarding anything stale or inconsistent. */
 export function loadSession(): Session | null {
   try {
@@ -124,7 +152,7 @@ export function loadSession(): Session | null {
     if (s.scenarioBankVersion !== SCENARIO_BANK_VERSION) return null;
     if (JSON.stringify(s.plan) !== JSON.stringify(assignRun(s.seed, SCENARIOS))) return null;
     if (!Array.isArray(s.decisions) || !Array.isArray(s.calHistory) || !s.step?.kind) return null;
-    return s;
+    return isConsistent(s) ? s : null;
   } catch {
     return null;
   }

@@ -52,6 +52,7 @@ Assignment follows these rules, all tested over 400 seeds in `tests/assignment.t
    - Each domain contributes one correct-advice and one incorrect-advice scenario.
    - Among the 64 possible domain splits, only those where the two groups' total difficulty differs by at most 1 are allowed.
    - The seed picks one of them.
+   - With the current bank, all 64 splits pass, because only one domain's pair (TXN) differs in difficulty. The rule is kept as a safeguard for future scenario edits.
 2. **Condition cells.**
    - Six trials per group cannot fill a 2 × 2 confidence × explanation grid evenly, so the two groups get complementary patterns: (HR, HR, HN, MR, MN, MN) and (HR, HN, HN, MR, MR, MN). The seed decides which group gets which.
    - Result within each correctness group: 3 high, 3 moderate, 3 with reasoning and 3 without.
@@ -85,7 +86,7 @@ Integrity checks run at app startup (`validateBank`) and in tests:
 - a documented reasoning error
 - identical facts across variants
 
-The bank was reviewed by a second reader before being frozen. `docs/scenario_review_log.md` lists every finding and change. Every scenario is fictional. None depends on a real jurisdiction's law or on specialist knowledge.
+Before being frozen, the bank went through a separate review pass by an AI reviewer that had not written it. `docs/scenario_review_log.md` lists every finding and change. A human read-through by the author is still listed as outstanding. Every scenario is fictional. None depends on a real jurisdiction's law or on specialist knowledge.
 
 ## Measures
 

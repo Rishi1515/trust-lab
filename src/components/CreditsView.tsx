@@ -5,7 +5,7 @@ import { Sprite, type SpriteName } from './Sprite';
 const ART: { name: SpriteName; file: string; source: string; use: string; alt: string }[] = [
   { name: 'idle', file: 'cal-idle.png', source: 'skelly.png', use: 'Cal at rest beside every screen', alt: 'Cal, a small pale skeleton, standing at rest.' },
   { name: 'attack', file: 'cal-audit-strike.png', source: 'Skeleton_01_White_Attack1.png', use: 'Audit strike, after overruling confident wrong advice', alt: 'A skeleton mid-lunge with a thin sword.' },
-  { name: 'die', file: 'cal-collapse.png', source: 'Skeleton_01_White_Die.png', use: 'Collapse, after accepting confident wrong advice (once per run)', alt: 'A skeleton collapsed into a heap of bones.' },
+  { name: 'die', file: 'cal-collapse.png', source: 'Skeleton_01_White_Die.png', use: 'Collapse, after accepting confident wrong advice (once per run)', alt: 'A skeleton falling apart mid-collapse, bones and sword dropping.' },
   { name: 'skull', file: 'risk-skull.png', source: 'skull1-sheet.png', use: 'Risk marker beside accepted wrong advice', alt: 'A small floating skull.' },
   { name: 'torch', file: 'torch.png', source: 'torch.png', use: 'Opening screen accent, beside Cal', alt: 'A standing brazier with a flame.' },
   { name: 'torch2', file: 'torch2.png', source: 'torch2.png', use: 'Midpoint accent', alt: 'A standing brazier with a flame and a cast shadow.' },
@@ -23,8 +23,8 @@ export function CreditsView({ backHref }: { backHref: string }) {
 
       <h2>Character art</h2>
       <p>
-        Cal and every sprite on this site are original artwork by P. Tejas Varma. Web files were exported from the supplied
-        sheets without redrawing; renamed files map back to their source names below.
+        Cal and every sprite on this site are original artwork by P. Tejas Varma. The web files are byte-for-byte copies of
+        the supplied sheets; renamed files map back to their source names below.
       </p>
       <ul className="art-list">
         {ART.map((a) => (

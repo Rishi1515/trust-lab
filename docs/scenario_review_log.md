@@ -13,7 +13,7 @@ This log records the ambiguities found in the scenario bank and what was changed
 ## Review method
 
 1. **Authoring pass.** One canonical record was written per scenario, with facts, three actions, the documented correct action, an outcome for each action, and two advice variants. The correct variant recommends the documented action. The incorrect variant recommends a plausible wrong action and records its `reasoningError`.
-2. **Independent review pass.** A separate reviewer who had not written the scenarios checked them against eleven rules:
+2. **Independent review pass.** A separate AI reviewer checked the scenarios against eleven rules. It was a Claude session with no part in writing them.
    - solvable from the screen alone
    - exactly one defensible action
    - plausible wrong advice with a traceable error

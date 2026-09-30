@@ -19,7 +19,7 @@ Phases 1 to 7 are complete. Phase 8 (deployment) is ready. The GitHub Actions wo
 | Check build uses the Pages base path | `npm run check:build` |
 | Everything, as CI runs it | `npm run verify` |
 
-Last local result: 468 tests passed; type check, lint, build and base-path check all clean.
+Last local result: 471 tests passed; type check, lint, build and base-path check all clean.
 
 ## Completed requirements
 
@@ -50,7 +50,7 @@ Last local result: 468 tests passed; type check, lint, build and base-path check
 - Reduced motion shows fixed frames. There is also a footer toggle, stored in `localStorage`.
 
 ### Phase 6: Polish
-- Responsive at 390 px and 1280 px with no horizontal overflow (checked with Playwright).
+- Responsive at 390 px and 1280 px with no horizontal overflow. This was checked during the build session with a Playwright script that is not part of the repository.
 - WCAG AA text contrast, with tints added for teal and warning text.
 - Visible focus, and correct and incorrect outcomes never shown by colour alone.
 
@@ -64,7 +64,7 @@ Last local result: 468 tests passed; type check, lint, build and base-path check
   - `docs/demo_script.md`
   - `LICENSE`
 - Screenshots in `docs/screenshots/`.
-- An 80-second demo recording, delivered separately (not committed).
+- An 80-second silent demo recording (seed `demo32`), delivered to Rishi separately and not committed to keep the repository small.
 
 ### Phase 8: Deployment
 - `.github/workflows/deploy.yml` runs `npm run verify` and deploys `dist/` to Pages from `main`.
@@ -94,6 +94,8 @@ Last local result: 468 tests passed; type check, lint, build and base-path check
   1. Play two runs and read every feedback screen (the human content review listed in the review log).
   2. Confirm with Tejas that the art licence wording is acceptable.
   3. Confirm that every sprite file is Tejas's original work. `Skeleton_01_White_*` follows an asset-pack naming pattern, and the brief forbids calling the art stock.
+  4. Time one real run. The "estimated 10 to 12 minutes" figure has not been measured.
+- **Sprite mapping verified.** All six web sprites are byte-identical to the files in `Downloads/sprites/sprites/`.
 - **Not yet deployed.** Push to `github.com/Rishi1515/trustlab`, then set Settings → Pages → Source to GitHub Actions.
 - **Timing** resets if the page is refreshed mid-scenario. This is documented as a limitation.
 - **Commit author.** Commits were made in the build session under "Vegesna Rishi Varma <Rishi1515@users.noreply.github.com>" with a Claude co-author trailer. Rishi can amend the email if GitHub does not link it to his account.

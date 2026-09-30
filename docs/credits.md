@@ -4,7 +4,7 @@ Designed and developed by Vegesna Rishi Varma. Original character artwork and sp
 
 ## Character art
 
-Cal and every sprite in TrustLab are original artwork by P. Tejas Varma. The web files were copied from the supplied `sprites/sprites/` folder without redrawing. Some were renamed for clarity; the mapping is below and in `public/sprites/ATTRIBUTION.txt`.
+Cal and every sprite in TrustLab are original artwork by P. Tejas Varma. The web files are byte-for-byte copies of files in the supplied `sprites/sprites/` folder, with nothing redrawn; this was checked by comparing the files. Some were renamed for clarity; the mapping is below and in `public/sprites/ATTRIBUTION.txt`.
 
 | Web file | Source file | Sheet | Frames | Used for |
 |---|---|---|---|---|

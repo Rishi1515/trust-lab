@@ -6,6 +6,7 @@ TrustLab is a controlled demonstration, not a validated instrument. These limita
 
 - **Small numbers.** Each condition comparison rests on 6 decisions per side, so one different choice moves a rate by about 17 percentage points. Differences within a single run are descriptive, not evidence of an effect.
 - **No reliability or validity testing.** The metrics have not been tested for test-retest reliability or checked against any external measure of judgement.
+- **Session length is an estimate.** The "10 to 12 minutes" figure has not been timed with real players.
 - **Timing is rough.** Decision time is measured in the browser with `performance.now()`. It restarts if the page is refreshed mid-scenario, and it reflects reading speed as much as deliberation. It is reported as descriptive only.
 - **Literal definitions.**
   - "Appropriate reliance" counts rejecting wrong advice even when the replacement choice is also wrong. These cases are shown separately.

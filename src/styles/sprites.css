@@ -41,9 +41,8 @@
 }
 .cal-stage > .sprite { position: absolute; left: 0; top: 0; }
 .cal-stage > .sprite--idle { left: calc(21 * var(--s) * 1px); top: calc(20 * var(--s) * 1px); }
-/* Torch base on Cal's baseline, to his right. torch.png's base ends at row 38; torch2.png's shadow at row 48. */
+/* Torch base on Cal's baseline, to his right. torch.png's base ends at row 38 of its 48-row frame. */
 .cal-stage > .stage-accent { left: calc(56 * var(--s) * 1px); top: calc(26 * var(--s) * 1px); }
-.cal-stage > .stage-accent.sprite--torch2 { top: calc(16 * var(--s) * 1px); }
 
 .sprite-inline { display: inline-block; vertical-align: middle; }
 .sprite-inline.sprite--skull { --s: 1; }

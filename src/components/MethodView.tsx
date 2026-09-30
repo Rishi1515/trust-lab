@@ -75,9 +75,9 @@ export function MethodView({ backHref, seed }: { backHref: string; seed: string 
         Each scenario is one canonical record: facts, three actions, the documented correct action and what each action leads
         to. The ground truth is stored separately from the advice. Two advice texts are written from the same facts: one
         recommends the documented action, the other recommends a plausible wrong action whose reasoning contains one traceable
-        error. Facts never change between conditions. Every scenario is fictional and solvable from the screen alone. The bank
-        was reviewed by a second reader before release and is frozen at version {SCENARIO_BANK_VERSION}; the review log is in
-        the repository.
+        error. Facts never change between conditions. Every scenario is fictional and solvable from the screen alone. Before
+        release the bank went through a separate review pass by an AI reviewer that had not written it, and is frozen at
+        version {SCENARIO_BANK_VERSION}. The review log in the repository lists every finding and change.
       </p>
 
       <h2>Measures</h2>

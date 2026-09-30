@@ -30,7 +30,7 @@ export function IntroView({ seed, onStart }: { seed: string; onStart: () => void
               results at the end.
             </li>
           </ul>
-          <p className="meta mono">About 10 to 12 minutes · 1 practice round + {SCORED_TRIALS} scored decisions · run seed {seed}</p>
+          <p className="meta mono">Estimated 10 to 12 minutes · 1 practice round + {SCORED_TRIALS} scored decisions · run seed {seed}</p>
         </section>
 
         <div className="actions-row">

@@ -87,7 +87,9 @@ export function ResultsView({ session, onReplay, onNewRun }: Props) {
       name: 'Underreliance',
       value: s.underreliance,
       text: `${METRIC_TEXT.underreliance} Counted out of the scenarios where the advice was right.`,
-      extra: s.underreliance.viaInvestigation ? `${s.underreliance.viaInvestigation} of these were choices to investigate.` : undefined,
+      extra: s.underreliance.viaInvestigation
+        ? `${s.underreliance.viaInvestigation} of these ${s.underreliance.viaInvestigation === 1 ? 'was a choice' : 'were choices'} to investigate.`
+        : undefined,
     },
     {
       name: 'Investigation',
@@ -109,8 +111,9 @@ export function ResultsView({ session, onReplay, onNewRun }: Props) {
           <p className="mono eyebrow">Results · {s.trials} scored decisions</p>
           <PageTitle>{BAND_TITLE[band]}</PageTitle>
           <p className="lede">
-            You accepted right advice {countOf(s.acceptance.aiCorrect)} times and wrong advice {countOf(s.acceptance.aiIncorrect)}{' '}
-            times. The title comes from your appropriate-reliance count; the numbers below are what it is based on.
+            {s.trials === 0
+              ? 'No scored decisions were recorded in this run.'
+              : `You accepted right advice ${countOf(s.acceptance.aiCorrect)} times and wrong advice ${countOf(s.acceptance.aiIncorrect)} times. The title comes from your appropriate-reliance count; the numbers below are what it is based on.`}
           </p>
         </div>
         <CalPanel line={line} />
@@ -147,7 +150,10 @@ export function ResultsView({ session, onReplay, onNewRun }: Props) {
                     <span className="metric-def">{METRIC_TEXT.time}</span>
                   </th>
                   <td className="mono">{formatSeconds(s.decisionTime.medianMs)}</td>
-                  <td className="mono">–</td>
+                  <td className="mono">
+                    <span aria-hidden="true">–</span>
+                    <span className="visually-hidden">no rate</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -272,10 +278,10 @@ export function ResultsView({ session, onReplay, onNewRun }: Props) {
         <h3>Confidence calibration</h3>
         <p>
           A confidence figure is only useful if it matches how often the system is right. In this run the AI was right{' '}
-          {countOf(highAccuracy)} times when it said 95% and {countOf(moderateAccuracy)} times when it said 65%.
-          {highAccuracy.rate === moderateAccuracy.rate
-            ? ' The figure carried no information about correctness, so any difference in how often you accepted the advice came from the number itself.'
-            : ' The figure was not a reliable guide to correctness.'}
+          {countOf(highAccuracy)} times when it said 95% and {countOf(moderateAccuracy)} times when it said 65%, so the figure
+          told you nothing about correctness. A difference in how often you accepted advice at the two levels is worth
+          noticing, but with 6 decisions per side and different scenarios behind each, one run cannot show that the number
+          caused it.
         </p>
         <h3>Explanations</h3>
         <p>

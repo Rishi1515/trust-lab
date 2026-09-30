@@ -53,7 +53,6 @@ describe('scoring fixtures', () => {
     expect(s.explanationEffect).toBe(100);
     expect(s.discrimination).toBe(0);
     expect(s.decisionTime.medianMs).toBe(5000);
-    expect(s.decisionTime.totalMs).toBe(20000);
   });
 
   it('skips unanswered trials rather than scoring them', () => {

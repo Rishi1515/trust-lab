@@ -26,9 +26,9 @@ One row per scored scenario, in the order played. The warm-up is not exported.
 | `chosen_action` | string | Action id the player submitted. |
 | `accepted` | boolean | `chosen_action` equals `ai_recommendation`. |
 | `correct` | boolean | `chosen_action` equals `correct_action`. |
-| `investigated` | boolean | The chosen action is the scenario's investigative option (investigate, query, hold, monitor, trial). |
+| `investigated` | boolean | The chosen action is the scenario's evidence-gathering option (`investigative: true` in the scenario bank). Examples: `ask`, `query`, `trial`, `check`, `contact`, `hold`, `inspect`, `monitor`, `review`, `carrier`. |
 | `pattern` | string | Reliance pattern, defined below. |
-| `evidence_ms` | integer | Milliseconds from the scenario appearing to the player revealing the AI advice. Descriptive only. |
+| `evidence_ms` | integer | Milliseconds from the scenario appearing to the player revealing the AI advice. Descriptive only. Resets if the page is refreshed mid-scenario. |
 | `decision_ms` | integer | Milliseconds from the advice being revealed to the decision being submitted. Descriptive only. Resets if the page is refreshed mid-scenario. |
 
 ### `pattern` values

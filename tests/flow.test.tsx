@@ -128,3 +128,40 @@ describe('results with zero counts', () => {
     expect(text).not.toMatch(/\b0%/);
   });
 });
+
+describe('navigation guards', () => {
+  it('cannot reopen a submitted decision by editing the address', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await pressButton(user, /^start$/i);
+    await pressButton(user, /start the practice round/i);
+    await decide(user);
+    expect(window.location.hash).toBe('#/feedback/warmup');
+    await act(async () => {
+      window.location.hash = '#/scenario/warmup';
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    expect(window.location.hash).toBe('#/feedback/warmup');
+    expect(screen.queryByRole('button', { name: /submit decision/i })).toBeNull();
+  });
+
+  it('discards a stored session whose step does not match its decisions', () => {
+    const broken = { ...createSession('broken1'), step: { kind: 'feedback', trial: 4 } };
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(broken));
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: 'TrustLab' })).toBeInTheDocument();
+    expect(JSON.parse(sessionStorage.getItem(STORAGE_KEY)!).seed).not.toBe('broken1');
+  });
+
+  it('skip link moves focus to the page title without changing the page', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await act(async () => {
+      window.location.hash = '#/credits';
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    await user.click(screen.getByRole('link', { name: /skip to content/i }));
+    expect(window.location.hash).toBe('#/credits');
+    expect(document.activeElement).toBe(screen.getByRole('heading', { level: 1, name: 'Credits' }));
+  });
+});

@@ -31,7 +31,6 @@ export type Summary = {
   underreliance: Ratio & { viaInvestigation: number };
   investigation: Ratio & { documentedCorrect: number };
   acceptance: {
-    overall: Ratio;
     highConfidence: Ratio;
     moderateConfidence: Ratio;
     rationale: Ratio;
@@ -45,7 +44,7 @@ export type Summary = {
   explanationEffect: number | null;
   /** Percentage-point difference in acceptance, correct advice minus incorrect advice. */
   discrimination: number | null;
-  decisionTime: { medianMs: number | null; totalMs: number };
+  decisionTime: { medianMs: number | null };
 };
 
 export function ratio(count: number, total: number): Ratio {
@@ -111,7 +110,6 @@ export function summarise(results: readonly TrialResult[]): Summary {
   const incorrectAdvice = all.length - correctAdvice;
 
   const acceptance = {
-    overall: acceptanceWhere(all, () => true),
     highConfidence: acceptanceWhere(all, (r) => r.scenario.confidence === HIGH_CONFIDENCE),
     moderateConfidence: acceptanceWhere(all, (r) => r.scenario.confidence === MODERATE_CONFIDENCE),
     rationale: acceptanceWhere(all, (r) => r.scenario.explanationMode === 'rationale'),
@@ -144,7 +142,7 @@ export function summarise(results: readonly TrialResult[]): Summary {
     confidenceSusceptibility: difference(acceptance.highConfidence, acceptance.moderateConfidence),
     explanationEffect: difference(acceptance.rationale, acceptance.noRationale),
     discrimination: difference(acceptance.aiCorrect, acceptance.aiIncorrect),
-    decisionTime: { medianMs: median(times), totalMs: times.reduce((a, b) => a + b, 0) },
+    decisionTime: { medianMs: median(times) },
   };
 }
 

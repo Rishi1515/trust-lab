@@ -18,7 +18,15 @@ export function Layout({ children, experimentHref, current, motion, onToggleMoti
   const inFlow = current !== '/method' && current !== '/credits';
   return (
     <>
-      <a className="skip-link" href="#page-title">
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(event) => {
+          // Move focus without changing the hash, which the router uses for pages.
+          event.preventDefault();
+          document.getElementById('page-title')?.focus();
+        }}
+      >
         Skip to content
       </a>
       <header className="site-header">

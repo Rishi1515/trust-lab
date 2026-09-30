@@ -46,7 +46,7 @@ export function BriefingView({ seed, onStartWarmup }: { seed: string; onStartWar
         </section>
 
         <p className="meta mono">
-          Practice round first (not scored), then {SCORED_TRIALS} scored scenarios · about 10 to 12 minutes · seed {seed}
+          Practice round first (not scored), then {SCORED_TRIALS} scored scenarios · estimated 10 to 12 minutes · seed {seed}
         </p>
         <div className="actions-row">
           <button type="button" className="button primary" onClick={onStartWarmup}>
